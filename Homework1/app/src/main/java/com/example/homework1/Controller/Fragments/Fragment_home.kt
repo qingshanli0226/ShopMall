@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.homework1.Controller.Adapter.MyAdapter
 import com.example.homework1.R
 import com.example.homework1.Utils.Constants
 import com.example.homework1.Utils.HttpThread
@@ -29,6 +31,7 @@ class Fragment_home : BaseFragment() {
     lateinit var tv_search_home : TextView
     lateinit var tv_message_home : TextView
     lateinit var handler: Handler
+    lateinit var myAdapter1 : MyAdapter
 
     var datas : ArrayList<Map<String,Object>> = arrayListOf()
     override fun initView(): View {
@@ -39,9 +42,18 @@ class Fragment_home : BaseFragment() {
         tv_search_home = view.findViewById(R.id.tv_search_home)
         tv_message_home = view.findViewById(R.id.tv_message_home)
 
+        initRecycler()
         initHandler()
         initListener()
         return view
+    }
+
+    private fun initRecycler() {
+        var  manager : LinearLayoutManager = LinearLayoutManager(context)
+        manager.orientation = RecyclerView.VERTICAL
+        view_recycler.layoutManager = manager
+
+
     }
 
     private fun initHandler() {
@@ -103,28 +115,4 @@ class Fragment_home : BaseFragment() {
         HttpThread(url,handler).start()
     }
 
-
-//    var titles : List<String> = listOf("1","2","3")
-
-//    lateinit var home_banner : Banner
-
-//    private fun initBanner() {
-//        home_banner.setImageLoader(object : ImageLoader() {
-//
-//            override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-//                println("进入加载")
-//                Glide.with(getContext())
-//                    .load(path)
-//                    .into(imageView)
-//            }
-//        })
-//        home_banner.setBannerTitles(titles)
-//        home_banner.setDelayTime(3000)
-//        home_banner.isAutoPlay(true)
-//        home_banner.setIndicatorGravity(BannerConfig.CENTER)
-//        home_banner.setBannerAnimation(Transformer.Default)
-//        home_banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-//        home_banner.setImages(images)
-//        home_banner.start()
-//    }
 }

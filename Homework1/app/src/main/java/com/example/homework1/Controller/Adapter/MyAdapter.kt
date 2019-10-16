@@ -8,25 +8,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.homework1.R
 import java.util.zip.Inflater
 
-class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>{
+abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
 
-    var datas : ArrayList<Map<String,Object>>
-    var context : Context
 
-    constructor(datas: ArrayList<Map<String, Object>>, context: Context) {
-        this.datas = datas
-        this.context = context
+    var datas : ArrayList<Map<String,Object>> = arrayListOf()
+
+
+    fun refresh(datas : ArrayList<Map<String,Object>>){
+        this.datas.clear()
+        this.datas.addAll(datas)
+        notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view : View
+        var view : View? = null
+        view = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false)
         when(viewType){
-            0 ->  view = LayoutInflater.from(context).inflate(R.layout.layout_banner,parent,false)
+            0 -> {view = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false)}
         }
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -34,15 +35,30 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+       holder.itemView.setOnClickListener {
+           onItemClick.OnClick(position)
+       }
 
+        bind(holder,position)
     }
 
     override fun getItemViewType(position: Int): Int {
-        val get = datas.get(position)
-        val type = get.get("type").toString()
-        when(type){
+        val map = datas[position]
+        when(map.get("type").toString()){
             "0" -> return 0
-            else -> return 1
+            else -> return -1
         }
+    }
+
+    abstract fun bind(holder: ViewHolder,position: Int)
+
+    private lateinit var onItemClick : OnItemClick
+
+    fun setClick(onItemClick: OnItemClick){
+        this.onItemClick = onItemClick
+    }
+
+    interface OnItemClick{
+        fun OnClick(index : Int)
     }
 }
