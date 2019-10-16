@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import jni.example.atguigu.fragment.*
+import jni.example.atguigu.home.fragment.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     var carFragment:CarFragment = CarFragment()
     var communityFragment: CommunityFragment = CommunityFragment()
-    var homeFragment:HomeFragment = HomeFragment()
+    var homeFragment: HomeFragment =
+        HomeFragment()
     var personFragment:PersonFragment = PersonFragment()
     var typeFragment:TypeFragment = TypeFragment()
 
