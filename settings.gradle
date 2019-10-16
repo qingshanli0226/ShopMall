@@ -1,2 +1,1 @@
-include ':app'
-rootProject.name='Atguigu'
+include ':app', ':okhttputils', ':banner', ':FlycoTabLayout_Lib', ':ViewPagerIndicator_library', ':opendanmaku'

@@ -1,9 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    tools:context=".type.fragment.ListFragment">
 
     <ListView
         android:id="@+id/lv_left"
@@ -11,13 +11,13 @@
         android:layout_height="match_parent"
         android:background="#11000000"
         android:scrollbars="none"
-        android:layout_weight="2.2" />
+        app:layout_widthPercent="22%" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_right"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/lv_left"
-        android:layout_weight="7.8" />
-</LinearLayout>
+        app:layout_widthPercent="78%" />
+</android.support.percent.PercentRelativeLayout>
 
