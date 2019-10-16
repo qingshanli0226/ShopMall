@@ -1,6 +1,7 @@
 package com.example.homework.home.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +18,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.homework.R
+import com.example.homework.app.GoodsInfoActivity
 import com.example.homework.home.bean.*
 import com.example.homework.utils.Constants
 import com.youth.banner.Banner
@@ -136,11 +137,19 @@ class HomeRecycleAdapter(var mContext: Context, var resultBean: ResultBean) :
         fun setData(data: List<HotInfo>) {
 
             itemView.rv_hot.layoutManager = GridLayoutManager(mContext, 2)
-            val adapter:HotGridViewAdapter = HotGridViewAdapter(mContext, data)
+            val adapter: HotGridViewAdapter = HotGridViewAdapter(mContext, data)
             itemView.rv_hot.adapter = adapter
             adapter.setOnItemClickListener { adapter, view, position ->
-// 10.1.59
-            Toast.makeText(mContext, "更改", Toast.LENGTH_SHORT).show()
+                // 10.1.59
+                val hotInfo = data[position]
+                val goodsBean =
+                    GoodsBean(hotInfo.name, hotInfo.cover_price, hotInfo.figure, hotInfo.product_id)
+
+                val intent = Intent(mContext, GoodsInfoActivity::class.java)
+                intent.putExtra(GOODS_BEAN, goodsBean)
+                mContext.startActivity(intent)
+
+
 
             }
 
@@ -187,6 +196,7 @@ class HomeRecycleAdapter(var mContext: Context, var resultBean: ResultBean) :
             tvTime = itemView.tv_time_seckill
             val tvMore = itemView.tv_more_seckill
         }
+
         val recyclerView = itemView.rv_seckill
 
         fun setData(data: SeckillInfo) {
@@ -311,5 +321,7 @@ class HomeRecycleAdapter(var mContext: Context, var resultBean: ResultBean) :
         val RECOMMEND = 4 //推荐
         val HOT = 5 //热卖
         var currentType = BANNER    //当前类型
+
+        val GOODS_BEAN = "goods_bean"
     }
 }
