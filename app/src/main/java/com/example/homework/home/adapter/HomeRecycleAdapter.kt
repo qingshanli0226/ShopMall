@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -139,7 +140,7 @@ class HomeRecycleAdapter(var mContext: Context, var resultBean: ResultBean) :
             itemView.rv_hot.adapter = adapter
             adapter.setOnItemClickListener { adapter, view, position ->
 // 10.1.59
-
+            Toast.makeText(mContext, "更改", Toast.LENGTH_SHORT).show()
 
             }
 
