@@ -1,5 +1,6 @@
 package com.example.kotlinshopping.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.example.kotlinshopping.Constants
 import com.example.kotlinshopping.R
 import com.example.kotlinshopping.bean.RecommendInfo
 
 class RecommendAdapter(var context: Context,var data:List<RecommendInfo>): BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var view = convertView
-        var viewHolder:ViewHolder
+        var viewHolder:ViewHolder? = null
         if (convertView == null){
             view = LayoutInflater.from(context).inflate(R.layout.item_recommend_grid_view,null)
             viewHolder = ViewHolder()
@@ -24,6 +27,11 @@ class RecommendAdapter(var context: Context,var data:List<RecommendInfo>): BaseA
         }else{
             viewHolder = view!!.tag as ViewHolder
         }
+        Glide.with(context)
+            .load(Constants.BASE_URl_IMAGE+data[position].figure)
+            .into(viewHolder.ivRecommend!!)
+        viewHolder.tvName!!.text = data[position].name
+        viewHolder.tvPrice!!.text = "￥${data[position].cover_price}"
         return view
     }
 

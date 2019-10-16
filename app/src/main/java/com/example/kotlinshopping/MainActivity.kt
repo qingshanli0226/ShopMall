@@ -22,7 +22,7 @@ var fragments:MutableList<Fragment> = ArrayList()
         fragments.add(ShopCarFragment())
         fragments.add(PersonalFragment())
         MainPager.adapter = viewPagerAdapter(supportFragmentManager)
-
+        rb_home.isChecked = true
         rg_main.setOnCheckedChangeListener{group, checkedId ->
             when(checkedId){
                 R.id.rb_home -> MainPager.currentItem = 0

@@ -25,6 +25,8 @@ import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.act_item.view.*
 import kotlinx.android.synthetic.main.channel_item.view.*
 import kotlinx.android.synthetic.main.home_banner.view.*
+import kotlinx.android.synthetic.main.hot_item.view.*
+import kotlinx.android.synthetic.main.recommend_item.view.*
 import kotlinx.android.synthetic.main.seckill_item.view.*
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
@@ -111,13 +113,15 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
             )
             SECKILL -> return SeckillViewHolder(
                 mlayoutInflater.inflate(R.layout.seckill_item,null), context,resultBean.seckill_info)
+            RECOMMEND -> return RecommendViewHolder(mlayoutInflater.inflate(R.layout.recommend_item,null),context,resultBean.recommend_info)
+            HOT -> return HotViewHolder(mlayoutInflater.inflate(R.layout.hot_item,null),context,resultBean.hot_info)
         }
         return v
     }
 
     //获取类型数量
     override fun getItemCount(): Int {
-        return 4
+        return 6
     }
 
     //绑定viewholder
@@ -139,9 +143,40 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
                 val seckillViewHolder:SeckillViewHolder = holder as SeckillViewHolder
                 seckillViewHolder.setData()
             }
+            RECOMMEND -> {
+                val recommendViewHolder:RecommendViewHolder = holder as RecommendViewHolder
+                recommendViewHolder.setData()
+            }
+            HOT -> {
+                val hotViewHolder:HotViewHolder = holder as HotViewHolder
+                hotViewHolder.setData()
+            }
         }
     }
-
+    //TODO HotViewHolder 热卖ViewHolder
+    class HotViewHolder(itemView: View,var context: Context,var list: List<HotInfo>) : RecyclerView.ViewHolder(itemView){
+         var tv_more_hot: TextView
+         var gv_hot: GridView
+        init {
+            tv_more_hot = itemView.tv_more_hot
+            gv_hot = itemView.gv_hot
+        }
+        fun setData(){
+            gv_hot.adapter = HotGridViewAdapter(context,list)
+        }
+    }
+    //TODO Recommend 推荐ViewHolder
+    class  RecommendViewHolder( itemView: View,var context: Context,var list: List<RecommendInfo>):RecyclerView.ViewHolder(itemView){
+        var  tv_more_recommend: TextView
+        var gv_recommend: GridView
+        init {
+            tv_more_recommend = itemView.tv_more_recommend
+            gv_recommend = itemView.gv_recommend
+        }
+        fun setData(){
+            gv_recommend.adapter = RecommendAdapter(context,list)
+        }
+    }
     //TODO Banner ViewHolder
     class BannerViewHolder(itemView: View, var context: Context, var resultBean: Result) :
         RecyclerView.ViewHolder(itemView) {
@@ -214,7 +249,7 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
         }
     }
 
-    //SECKILL 秒杀ViewHolder
+    //TODO SECKILL 秒杀ViewHolder
  internal inner  class SeckillViewHolder(itemView: View,var context: Context,var seckillInfo: SeckillInfo) : RecyclerView.ViewHolder(itemView){
         var recyclerView:RecyclerView
 
