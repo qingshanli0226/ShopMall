@@ -10,14 +10,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dp">
-
         <ImageButton
             android:id="@+id/ib_community_icon"
             android:layout_width="40dp"
             android:scaleType="fitXY"
             android:layout_height="40dp"
             android:background="@drawable/top_btn" />
-
         <TextView
             android:textSize="18sp"
             android:textColor="@android:color/background_dark"
@@ -37,15 +35,17 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#22000000" />
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
-        style="@style/MyCustomTabLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
-    <androidx.viewpager.widget.ViewPager
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tablayout"-->
+        <!--style="@style/MyCustomTabLayout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp" />-->
+
+
+    <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
