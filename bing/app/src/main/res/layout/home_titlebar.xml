@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                              android:background="#ed3f3f"
+                                              android:orientation="horizontal"
+                                                                          >
+
+    <TextView
+            android:id="@+id/home_Search"
+              android:layout_weight="1"
+              android:layout_width="wrap_content"
+              android:layout_height="35dp"
+              android:text="请输入搜素信息"
+              android:textSize="13sp"
+              android:layout_gravity="center_vertical"
+              android:background="@drawable/search_home_shape"
+              android:drawableLeft="@drawable/home_search_icon"
+              android:layout_marginLeft="10dp"
+              android:gravity="center_vertical"
+              android:padding="5dp"
+              android:drawablePadding="15dp"
+              />
+
+    <TextView
+              android:id="@+id/home_Message"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="消息"
+               android:textColor="#fff"
+               android:drawableTop="@drawable/new_message_icon"
+               android:layout_margin="5dp"/>
+
+
+
+
+
+</LinearLayout>
