@@ -106,7 +106,6 @@ class HomeFragment : BaseFragment() {
                 val myAdpater = MyAdpater(activity!!, list)
                 rv_home.layoutManager = LinearLayoutManager(activity!!)
                 rv_home.adapter = myAdpater
-
             }
         })
     }
