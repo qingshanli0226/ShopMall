@@ -148,14 +148,8 @@ class HomeRecycleAdapter(var mContext: Context, var resultBean: ResultBean) :
                 val intent = Intent(mContext, GoodsInfoActivity::class.java)
                 intent.putExtra(GOODS_BEAN, goodsBean)
                 mContext.startActivity(intent)
-
-
-
             }
-
-
         }
-
     }
 
 

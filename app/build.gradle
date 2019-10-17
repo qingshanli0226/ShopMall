@@ -9,8 +9,8 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.homework"
-        minSdkVersion 18
-        targetSdkVersion 29
+        minSdkVersion 18  //应用兼容的系统的最小版本
+        targetSdkVersion 29 //代表 应用版本, 应用程序编译的版本
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     }
 
     fun switchFragment(currentFragment: Fragment):FragmentTransaction{
