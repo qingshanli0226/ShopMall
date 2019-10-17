@@ -39,7 +39,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/view_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/layout_top">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -49,7 +49,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/top_btn"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/view_recycler"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"/>
 </RelativeLayout>

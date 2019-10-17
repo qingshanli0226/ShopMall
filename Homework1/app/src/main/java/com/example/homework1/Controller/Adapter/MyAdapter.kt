@@ -17,16 +17,29 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
     fun refresh(datas : ArrayList<Map<String,Object>>){
         this.datas.clear()
         this.datas.addAll(datas)
+        println("size2: ${this.datas.size}")
         notifyDataSetChanged()
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view : View? = null
-        view = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false)
+
+
         when(viewType){
-            0 -> {view = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false)}
+            0 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false)
+                return ViewHolder(view)
+            }
+            1 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler, parent, false)
+                return ViewHolder(view)
+            }
+            2 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_channelinfo, parent, false)
+                return ViewHolder(view)
+            }
         }
+        var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_channelinfo, parent, false)
         return ViewHolder(view)
     }
 
@@ -46,6 +59,8 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
         val map = datas[position]
         when(map.get("type").toString()){
             "0" -> return 0
+            "1" -> return 1
+            "2" -> return 2
             else -> return -1
         }
     }
