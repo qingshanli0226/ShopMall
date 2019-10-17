@@ -2,6 +2,7 @@ package com.example.myshopping.app.app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.myshopping.R
 import com.example.myshopping.base.BaseFragment
 import com.example.myshopping.community.CommunityFragment
@@ -12,9 +13,9 @@ import com.example.myshopping.user.UserFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    var fragList = mutableListOf<BaseFragment>()
+    var fragList = mutableListOf<Fragment>()
     var position: Int = 0;
-    private var mContext: BaseFragment? = null
+    private var mContext: Fragment? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         rg.check(R.id.rb_home)
     }
 
-    private fun switchFragment(fromFragment: BaseFragment?, nextFragment: BaseFragment?) {
+    private fun switchFragment(fromFragment: Fragment?, nextFragment: Fragment?) {
         if (this.mContext != nextFragment) {
             this.mContext = nextFragment
             if (nextFragment != null) {
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun getFragmeng(position: Int): BaseFragment? {
+    private fun getFragmeng(position: Int): Fragment? {
         if (fragList != null && fragList.size > 0) {
             val fragment = fragList.get(position)
             return fragment
