@@ -2,11 +2,11 @@ package com.example.kotlinshopping
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.kotlinshopping.fragment.*
+import com.example.kotlinshopping.fragment.TypeFragment.SortFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
