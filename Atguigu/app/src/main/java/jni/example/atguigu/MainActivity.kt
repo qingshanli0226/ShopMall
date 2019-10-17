@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import jni.example.atguigu.fragment.*
 import jni.example.atguigu.home.fragment.HomeFragment
+import jni.example.atguigu.type.TypeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     var homeFragment: HomeFragment =
         HomeFragment()
     var personFragment:PersonFragment = PersonFragment()
-    var typeFragment:TypeFragment = TypeFragment()
+    var typeFragment: TypeFragment =
+        TypeFragment()
 
     var array:ArrayList<Fragment> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {

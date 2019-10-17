@@ -10,8 +10,8 @@
         android:layout_height="60dp"
         android:padding="5dp">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/type_tabLayout"
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/segmenttable"
             android:layout_width="150dp"
             android:layout_height="35dp"
             android:layout_centerInParent="true"

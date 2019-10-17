@@ -8,8 +8,6 @@ object Constants {
     //请求Json串用这个ID
     val BASE_URL_JSON:String = "/atguigu/json"
 
-    //首页UI串
-    val URL_HOME:String = "$BASE_URL_JSON/HOME_URL.json"
     //请求图片基本URL
     val BASE_URl_IMAGE:String = "$BASE/atguigu/img"
 
@@ -35,4 +33,46 @@ object Constants {
     val DIGIT_URL = BASE_URL_JSON + "DIGIT_URL.json"
     //游戏专区
     val GAME_URL = BASE_URL_JSON + "GAME_URL.json"
+
+    //主页Fragment路径
+    val HOME_URL = BASE_URL_JSON + "HOME_URL.json"
+    //分类Fragment里面的标签Fragment页面数据
+    val TAG_URL = BASE_URL_JSON + "TAG_URL.json"
+
+
+    val NEW_POST_URL = BASE_URL_JSON + "NEW_POST_URL.json"
+    val HOT_POST_URL = BASE_URL_JSON + "HOT_POST_URL.json"
+
+
+    //页面的具体数据的id
+    val GOODSINFO_URL = BASE_URL_JSON + "GOODSINFO_URL.json"
+
+    //服饰
+    val CLOSE_STORE = BASE_URL_JSON + "CLOSE_STORE.json"
+    //游戏
+    val GAME_STORE = BASE_URL_JSON + "GAME_STORE.json"
+    //动漫
+    val COMIC_STORE = BASE_URL_JSON + "COMIC_STORE.json"
+    //cosplay
+    val COSPLAY_STORE = BASE_URL_JSON + "COSPLAY_STORE.json"
+    //古风
+    val GUFENG_STORE = BASE_URL_JSON + "GUFENG_STORE.json"
+    //漫展
+    val STICK_STORE = BASE_URL_JSON + "STICK_STORE.json"
+    //文具
+    val WENJU_STORE = BASE_URL_JSON + "WENJU_STORE.json"
+    //零食
+    val FOOD_STORE = BASE_URL_JSON + "FOOD_STORE.json"
+    //首饰厂
+    val SHOUSHI_STORE = BASE_URL_JSON + "SHOUSHI_STORE.json"
+
+
+    var isBackHome: Boolean? = false
+
+
+    //客服数据
+    val CALL_CENTER =
+        "http://www6.53kf.com/webCompany.php?arg=10007377&style=1&kflist=off&kf=info@atguigu.com,video@atguigu.com,public@atguigu.com,3069368606@qq.com,215648937@qq.com,sudan@atguigu.com,sszhang@atguigu.com&zdkf_type=1&language=zh-cn&charset=gbk&referer=http%3A%2F%2Fwww.atguigu.com%2Fcontant.shtml&keyword=&tfrom=1&tpl=crystal_blue&timeStamp=1479001706368&ucust_id="
+
+
 }

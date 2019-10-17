@@ -52,7 +52,7 @@ class HomeFragment : Fragment(){
     }
 
     fun onGetJson(){
-        OkUtlis.doGet("${Constants.BASE}${Constants.URL_HOME}",object :OkUtlis.MyCallback{
+        OkUtlis.doGet(Constants.HOME_URL,object :OkUtlis.MyCallback{
             override fun success(resultJson: String) {
                 val message = Message.obtain()
                 message.what=0
