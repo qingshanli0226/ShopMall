@@ -20,6 +20,12 @@ class SeckillHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 dt-=1000
                 var sdf:SimpleDateFormat = SimpleDateFormat("HH:mm:ss")
                 itemView.tv_time_seckill.text = sdf.format(Date(dt.toLong()))
+
+                removeMessages(1)
+                sendEmptyMessageDelayed(1, 1000)
+                if (dt == 0) {
+                    removeMessages(1)
+                }
             }
         }
     }
@@ -37,7 +43,7 @@ class SeckillHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             isBegin = false
         }
 
-        handler.sendEmptyMessageDelayed(0,1000)
+        handler.sendEmptyMessageDelayed(1,1000)
         val list = seckillInfo.list
         with(itemView){
             rv_seckill.layoutManager = LinearLayoutManager(itemView.context,LinearLayout.HORIZONTAL,false)
