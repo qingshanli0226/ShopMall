@@ -27,7 +27,7 @@ class HomeFragment:Fragment() {
                 
             }
             override fun onResponse(call: Call, response: Response) {
-
+                
             }
 
         })
