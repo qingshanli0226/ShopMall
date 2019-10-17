@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:clipChildren="false">
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_pager"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:clipChildren="false"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
+
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>

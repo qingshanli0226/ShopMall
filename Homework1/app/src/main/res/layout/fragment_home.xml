@@ -49,7 +49,12 @@
                 android:layout_height="40dp"
                 android:src="@drawable/top_btn"
                 android:layout_alignParentRight="true"
+                android:layout_above="@id/tv_flag"
+                android:layout_marginRight="20dp"/>
+        <TextView
+                android:id="@+id/tv_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -7,8 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.homework1.R
+import com.example.homework1.Utils.CardTransformer
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
@@ -90,4 +92,13 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    fun setViewPager(id : Int,datas : ArrayList<String>,context: Context){
+        var viewPager : ViewPager = getView(id) as ViewPager
+        if(viewPager!=null){
+            viewPager.pageMargin = 40
+            viewPager.setPageTransformer(true,CardTransformer())
+            var myAdapter2 : MyAdapter2 = MyAdapter2(datas,context)
+            viewPager.adapter = myAdapter2
+        }
+    }
 }

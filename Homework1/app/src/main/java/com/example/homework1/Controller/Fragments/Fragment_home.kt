@@ -28,7 +28,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class Fragment_home : BaseFragment() {
+class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
+
 
     lateinit var view_recycler : RecyclerView
     lateinit var img_topbtn : ImageView
@@ -64,11 +65,14 @@ class Fragment_home : BaseFragment() {
                 when(type){
                     "0" -> setBanner(holder,position)
                     "1" -> setchannelinfo(holder,position)
+                    "3" -> setactinfo(holder,position)
                 }
             }
         }
         view_recycler.adapter = myAdapter1
     }
+
+
 
 
     private fun initHandler() {
@@ -90,6 +94,9 @@ class Fragment_home : BaseFragment() {
             val jsonObject1 = jsonObject.getJSONObject("result")
             initBanner(jsonObject1)
             initchannelinfo(jsonObject1)
+            initactinfo(jsonObject1)
+
+
 
         }catch (e : JSONException){
 
@@ -97,51 +104,32 @@ class Fragment_home : BaseFragment() {
 
     }
 
-    private fun initchannelinfo(jsonObject: JSONObject) {
-        val jsonArray = jsonObject.getJSONArray("channel_info")
-        var dataz : ArrayList<Map<String,Object>> = arrayListOf()
-        for (i in 0 until jsonArray.length()){
-            var hashMap : HashMap<String,Object> = hashMapOf()
-            val jsonObject2 = jsonArray.getJSONObject(i)
-            var string :String = "${Constants.BASE_URl_IMAGE}${jsonObject2.getString("image")}"
-            println(string)
 
-            hashMap.put("type","2" as Object)
-            hashMap.put("channel_name",jsonObject2.getString("channel_name") as Object)
-            hashMap.put("image", string as Object)
 
-            dataz.add(hashMap)
-        }
-        var hashMap : HashMap<String,Object> = hashMapOf()
 
-        hashMap.put("type","1" as Object)
-        hashMap.put("data",dataz as Object)
-
-        datas.add(hashMap)
-
-        println("size: ${datas.size}")
-        Activity().runOnUiThread(object : Runnable{
-            override fun run() {
-                for (i in datas){
-                    println(i.toString())
-                }
-                myAdapter1.refresh(datas)
-            }
-        })
-    }
-
-    private fun setchannelinfo(holder: ViewHolder, position: Int) {
-
-        println("进入channel")
-        val map = datas[position]
-
-        var context : Context? = context
-        if(context!=null){
-            holder.setRecycler(R.id.rv_recycler,map.get("data") as ArrayList<Map<String, Object>>,getContext())
+    private fun initListener() {
+        img_topbtn.setOnClickListener {
+            view_recycler.scrollToPosition(0)
         }
 
+        tv_search_home.setOnClickListener {
+            Toast.makeText(context,"搜索",Toast.LENGTH_LONG).show()
+        }
+
+        tv_message_home.setOnClickListener {
+            Toast.makeText(context,"进入消息中心",Toast.LENGTH_LONG).show()
+        }
     }
 
+    override fun initData(){
+        println("加载数据")
+        var url : String = Constants.HOME_URL
+        HttpThread(url,handler).start()
+    }
+
+    /**
+     * Banner轮播图
+     * */
     private fun initBanner(jsonObject:JSONObject) {
         val jsonArray = jsonObject.getJSONArray("banner_info")
 
@@ -164,24 +152,84 @@ class Fragment_home : BaseFragment() {
         holder.setBanner(R.id.mybanner,map.get("data") as ArrayList<String>)
     }
 
-    private fun initListener() {
-        img_topbtn.setOnClickListener {
-            view_recycler.scrollToPosition(0)
-        }
+    /**
+     * 小选项
+     * */
+    private fun initchannelinfo(jsonObject: JSONObject) {
+        val jsonArray = jsonObject.getJSONArray("channel_info")
+        var dataz : ArrayList<Map<String,Object>> = arrayListOf()
+        for (i in 0 until jsonArray.length()){
+            var hashMap : HashMap<String,Object> = hashMapOf()
+            val jsonObject2 = jsonArray.getJSONObject(i)
+            var string :String = "${Constants.BASE_URl_IMAGE}${jsonObject2.getString("image")}"
+            println(string)
 
-        tv_search_home.setOnClickListener {
-            Toast.makeText(context,"搜索",Toast.LENGTH_LONG).show()
-        }
+            hashMap.put("type","2" as Object)
+            hashMap.put("channel_name",jsonObject2.getString("channel_name") as Object)
+            hashMap.put("image", string as Object)
 
-        tv_message_home.setOnClickListener {
-            Toast.makeText(context,"进入消息中心",Toast.LENGTH_LONG).show()
+            dataz.add(hashMap)
+        }
+        var hashMap : HashMap<String,Object> = hashMapOf()
+
+        hashMap.put("type","1" as Object)
+        hashMap.put("data",dataz as Object)
+
+        datas.add(hashMap)
+    }
+
+
+    private fun setchannelinfo(holder: ViewHolder, position: Int) {
+
+        val map = datas[position]
+
+        var context : Context? = context
+        if(context!=null){
+            holder.setRecycler(R.id.rv_recycler,map.get("data") as ArrayList<Map<String, Object>>,getContext())
         }
     }
 
-    override fun initData(){
-        println("加载数据")
-        var url : String = Constants.HOME_URL
-        HttpThread(url,handler).start()
+    /**
+     * 可滑动图片
+     * */
+    private fun initactinfo(jsonObject: JSONObject) {
+        val jsonArray = jsonObject.getJSONArray("act_info")
+        var images : ArrayList<String> = arrayListOf()
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject2 = jsonArray.getJSONObject(i)
+            val string = "${Constants.BASE_URl_IMAGE}${jsonObject2.getString("icon_url")}"
+               images.add(string)
+        }
+
+        var hashMap : HashMap<String,Object> = hashMapOf()
+
+        hashMap.put("type","3" as Object)
+        hashMap.put("data",images as Object)
+
+        datas.add(hashMap)
+
+        println("size: ${datas.size}")
+        Activity().runOnUiThread(object : Runnable{
+            override fun run() {
+                for (i in datas){
+                    println(i.toString())
+                }
+                myAdapter1.refresh(datas)
+                myAdapter1.setClick(this@Fragment_home)
+            }
+        })
     }
 
+    private fun setactinfo(holder: ViewHolder, position: Int) {
+        val map = datas[position]
+
+        var context : Context? = context
+        if(context!=null){
+            holder.setViewPager(R.id.vp_pager,map.get("data") as ArrayList<String>,context)
+        }
+    }
+
+    override fun OnClick(index: Int) {
+
+    }
 }

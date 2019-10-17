@@ -38,6 +38,10 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
                 var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_channelinfo, parent, false)
                 return ViewHolder(view)
             }
+            3 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_actinfo, parent, false)
+                return ViewHolder(view)
+            }
         }
         var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_channelinfo, parent, false)
         return ViewHolder(view)
@@ -61,6 +65,7 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
             "0" -> return 0
             "1" -> return 1
             "2" -> return 2
+            "3" -> return 3
             else -> return -1
         }
     }
