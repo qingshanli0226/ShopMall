@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myshopping.R
 import com.example.myshopping.base.BaseFragment
+import com.example.myshopping.home.Adapter.MyAdapter2
 import com.example.myshopping.home.Adapter.MyAdpater
 import com.example.myshopping.home.bean.HomeBean
 import com.example.myshopping.home.bean.JsonBean
@@ -114,14 +115,18 @@ class HomeFragment : Fragment() {
                     fourthlist.add(UrlBean(cover_price, figure, origin_price))
                 }
                 list.add(HomeBean(1, firstlist))
-                list.add(HomeBean(2, secondlist))
-                list.add(HomeBean(3, thirdlist))
-                list.add(HomeBean(4, fourthlist))
-                list.add(HomeBean(5, fifthlist))
-                list.add(HomeBean(6, sixthlist))
-                val myAdpater = MyAdpater(activity!!, list)
+//                list.add(HomeBean(2, secondlist))
+//                list.add(HomeBean(3, thirdlist))
+//                list.add(HomeBean(4, fourthlist))
+//                list.add(HomeBean(5, fifthlist))
+//                list.add(HomeBean(6, sixthlist))
+//                val myAdpater = MyAdpater(activity!!, list)
+//                rv_home.layoutManager = LinearLayoutManager(activity!!)
+//                rv_home.adapter = myAdpater
+                val myAdapter2 = MyAdapter2()
+                myAdapter2.updataData(list as MutableList<Any>)
                 rv_home.layoutManager = LinearLayoutManager(activity!!)
-                rv_home.adapter = myAdpater
+                rv_home.adapter = myAdapter2
             }
         })
 
