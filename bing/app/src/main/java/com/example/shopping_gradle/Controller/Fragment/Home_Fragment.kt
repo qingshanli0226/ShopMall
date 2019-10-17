@@ -33,9 +33,7 @@ class Home_Fragment:Fragment() {
         return view
     }
 
-    private fun InItOkHttp() {
 
-    }
 
     private fun InItData() {
 

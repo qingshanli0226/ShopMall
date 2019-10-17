@@ -7,6 +7,7 @@ package com.example.shopping_gradle
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.widget.RadioGroup
 import com.example.shopping_gradle.Controller.Adapter.Main_FragAdapter
 import com.example.shopping_gradle.Controller.Fragment.ClassIFications_Fragment
 import com.example.shopping_gradle.Controller.Fragment.Home_Fragment
@@ -28,6 +29,18 @@ class MainActivity : AppCompatActivity() {
 
         var fragAdapter:Main_FragAdapter = Main_FragAdapter(supportFragmentManager,mlist)
         Main_frameLayout.adapter=fragAdapter
+
+
+        Main_rg_main.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
+
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                when(checkedId){
+                    R.id.Main_rb_home->Main_frameLayout.currentItem=0
+                    R.id.Main_rb_community->Main_frameLayout.currentItem=1
+                }
+            }
+
+        })
 
 
     }

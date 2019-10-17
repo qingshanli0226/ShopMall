@@ -36,7 +36,6 @@ class HotAdapter(ctx: Context, mlist: List<HotInfo>) : RecyclerView.Adapter<HotA
 
     inner class MyHolder(item: View) : RecyclerView.ViewHolder(item) {
 
-
         var img = item.hot_itemImg
         var name = item.hot_itemName
         var price = item.hot_itemPrice

@@ -49,7 +49,7 @@ class Home_RecyclerAdapter(
         var RECMMMOND=4
         var HOT:Int=5
     }
-
+    
 
     override fun getItemViewType(position: Int): Int {
       when(position){
@@ -59,6 +59,7 @@ class Home_RecyclerAdapter(
           SECK->currentType= SECK
           RECMMMOND-> currentType= RECMMMOND
           HOT->currentType= HOT
+          else -> -1
       }
         return currentType
     }
@@ -113,8 +114,8 @@ class Home_RecyclerAdapter(
 
         var horRecyclerView = item.gv_hot
         fun setData() {
-            var grid: GridLayoutManager = GridLayoutManager(mContext, 2)
-            horRecyclerView.layoutManager = grid
+            var gridHot: GridLayoutManager = GridLayoutManager(mContext, 2)
+            horRecyclerView.layoutManager = gridHot
             val hotAdapter: HotAdapter = HotAdapter(mContext, mHome.result.hot_info)
             horRecyclerView.adapter = hotAdapter
         }
