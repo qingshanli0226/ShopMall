@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
-import com.bw.dianshang.BannerInfo
-import com.bw.dianshang.Bean
-import com.bw.dianshang.R
-import com.bw.dianshang.Result
+import com.bw.dianshang.*
 import com.youth.banner.Banner
+import com.youth.banner.BannerConfig
 import java.nio.channels.Channel
 
 
@@ -96,11 +94,11 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         var hotViewHolder:HotViewHolder = p0 as HotViewHolder
         when(getItemViewType(p1)){
             BANNER -> bannerViewHolder.setData(resultBean[p1].banner_info)
-            BANNER -> channelViewHolder.setData(resultBean[p1].banner_info)
-            BANNER -> actViewHolder.setData(resultBean[p1].banner_info)
-            BANNER -> seckillViewHolder.setData(resultBean[p1].banner_info)
-            BANNER -> recommendViewHolder.setData(resultBean[p1].banner_info)
-            BANNER -> hotViewHolder.setData(resultBean[p1].banner_info)
+            CHANNEL -> channelViewHolder.setData(resultBean[p1].channel_info)
+            ACT -> actViewHolder.setData(resultBean[p1].act_info)
+            SECKILL -> seckillViewHolder.setData(resultBean[p1].seckill_info.list)
+            RECOMMEND -> recommendViewHolder.setData(resultBean[p1].recommend_info)
+            HOT -> hotViewHolder.setData(resultBean[p1].hot_info)
         }
     }
 
@@ -109,7 +107,7 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<BannerInfo>){
+        fun setData(bannerInfo: List<HotInfo>){
 
         }
     }
@@ -119,7 +117,7 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<BannerInfo>){
+        fun setData(bannerInfo: List<RecommendInfo>){
 
         }
     }
@@ -129,7 +127,7 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<BannerInfo>){
+        fun setData(seckillInfo: List<X>){
 
         }
     }
@@ -139,7 +137,7 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<BannerInfo>){
+        fun setData(bannerInfo: List<ActInfo>){
 
         }
     }
@@ -149,22 +147,24 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<BannerInfo>){
+        fun setData(bannerInfo: List<ChannelInfo>){
 
         }
     }
 
     inner class BannerViewHolder(item: View, mContext: Context, resultBean: MutableList<Result>): RecyclerView.ViewHolder(item) {
         var banner:Banner? =null
-        var mcontext:Context? = null
+        var mContext:Context? = null
         var resultBean:MutableList<Result>? = null
         init {
             banner = item.findViewById(R.id.banner)
-            mcontext = mContext
+            this.mContext = mContext
+            this.resultBean = resultBean
         }
 
         fun setData(bannerInfo: List<BannerInfo>){
-
+            banner?.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+            //如果你想用自己的项目图片加载,那么
         }
 
     }
