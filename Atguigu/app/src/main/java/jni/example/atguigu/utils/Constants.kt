@@ -6,7 +6,7 @@ object Constants {
     //内网用这个ID
     val BASEN:String = "http://169.254.172.7:8080"
     //请求Json串用这个ID
-    val BASE_URL_JSON:String = "/atguigu/json"
+    val BASE_URL_JSON:String = "/atguigu/json/"
 
     //请求图片基本URL
     val BASE_URl_IMAGE:String = "$BASE/atguigu/img"

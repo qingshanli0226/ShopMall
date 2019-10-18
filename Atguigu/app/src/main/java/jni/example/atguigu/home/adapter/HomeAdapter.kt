@@ -1,19 +1,12 @@
 package jni.example.atguigu.home.adapter
 
 import android.content.Context
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.youth.banner.BannerConfig
-import com.youth.banner.loader.ImageLoader
 import jni.example.atguigu.R
 import jni.example.atguigu.home.Bean.ResultBean
 import jni.example.atguigu.home.holder.*
-import kotlinx.android.synthetic.main.channel_item.view.*
-import kotlinx.android.synthetic.main.home_banner.view.*
 
 
 class HomeAdapter(
@@ -80,7 +73,6 @@ class HomeAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("lhf","position:--"+position.toString())
         when(position){
             BANNER -> currentType = BANNER
             CHANNEL -> currentType = CHANNEL
@@ -89,13 +81,11 @@ class HomeAdapter(
             RECOMMEND -> currentType = RECOMMEND
             HOT -> currentType = HOT
         }
-        Log.d("lhf","currenType"+currentType.toString())
         return currentType
     }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        println("lhf holder--${holder is ChannelHolder}")
         if (getItemViewType(position)==BANNER) {
             val bannerViewHolder = holder as BannerViewHolder
             bannerViewHolder.setDate(bean?.result?.banner_info)
@@ -116,6 +106,5 @@ class HomeAdapter(
             val hotViewHolder = holder as HotViewHolder
             hotViewHolder.setData((bean?.result?.hot_info))
         }
-
     }
 }

@@ -4,21 +4,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jni.example.atguigu.AllPowerfulHolder
 
-abstract class AllPowerfulAdapter<T,V:AllPowerfulHolder>(
-    date:List<T>
-):RecyclerView.Adapter<V>() {
+abstract class AllPowerfulAdapter<T,V:AllPowerfulHolder>:RecyclerView.Adapter<V>() {
 
-    var date:List<T> ?= null
+    private var dataList:MutableList<T> = mutableListOf()//管理的数据
 
-    init {
-        this.date = date
+    //更新数据
+    fun updateData(beanList:MutableList<T>) {
+        dataList.clear()
+        dataList.addAll(beanList)
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
         return getType(position)
     }
 
-    abstract fun getType(position: Int):Int
+    open  fun getType(position: Int):Int{
+        return 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): V {
         return getViewHolder(parent, viewType)
@@ -27,7 +30,7 @@ abstract class AllPowerfulAdapter<T,V:AllPowerfulHolder>(
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int):V
 
     override fun getItemCount(): Int {
-        return date!!.size
+        return dataList.size
     }
 
     override fun onBindViewHolder(holder: V, position: Int) {

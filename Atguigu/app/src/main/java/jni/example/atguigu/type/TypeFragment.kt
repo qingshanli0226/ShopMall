@@ -1,47 +1,45 @@
 package jni.example.atguigu.type
 
-import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.flyco.tablayout.listener.OnTabSelectListener
 import jni.example.atguigu.R
-import jni.example.atguigu.utils.Constants
-import jni.example.atguigu.utils.OkUtlis
-import kotlinx.android.synthetic.main.fragment_community.view.*
+import jni.example.atguigu.base.BaseFragment
+import jni.example.atguigu.type.fragment.LabelFragment
+import jni.example.atguigu.type.fragment.Type_List_Fragment
 import kotlinx.android.synthetic.main.fragment_type.*
-import kotlinx.android.synthetic.main.fragment_type.view.*
 
-class TypeFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+class TypeFragment : BaseFragment() {
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?): View {
         val view = inflater.inflate(R.layout.fragment_type, null)
-        onGetJson()
-        var list = arrayOf("分类","标签")
-        segmenttable.setTabData(list)
-        segmenttable.setOnTabSelectListener(object :OnTabSelectListener{
+        return view
+    }
+
+    override fun initDate() {
+        super.initDate()
+        var array:Array<String> = arrayOf("分类","标签")
+        segment_tab.setTabData(array)
+
+        val transaction = activity!!.supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fl_type,Type_List_Fragment()).commit()
+        segment_tab.setOnTabSelectListener(object :OnTabSelectListener{
             override fun onTabSelect(position: Int) {
+                Log.d("lhf",position.toString())
+                when(position){
+                    0->activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_type,Type_List_Fragment()).commit()
+                    1->activity!!.supportFragmentManager.beginTransaction().replace(R.id.fl_type,LabelFragment()).commit()
+                }
             }
 
             override fun onTabReselect(position: Int) {
 
             }
         })
-        return view
     }
-    fun onGetJson(){
-        OkUtlis.doGet(Constants.TAG_URL,object :OkUtlis.MyCallback{
-            override fun success(string: String) {
 
-            }
 
-            override fun error(error: String) {
 
-            }
-        })
-    }
+
 }
