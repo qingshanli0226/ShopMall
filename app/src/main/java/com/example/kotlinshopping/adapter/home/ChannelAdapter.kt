@@ -1,7 +1,6 @@
-package com.example.kotlinshopping.adapter
+package com.example.kotlinshopping.adapter.home
 
 import android.content.Context
-import android.hardware.camera2.params.OisSample
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.kotlinshopping.Constants
 import com.example.kotlinshopping.R
 import com.example.kotlinshopping.bean.ChannelInfo
-import java.util.concurrent.RecursiveTask
+
 //频道的适配器
 class ChannelAdapter(var context: Context,var list:List<ChannelInfo>) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var viewHolder:ViewHolder? = null
+        var viewHolder: ViewHolder? = null
         var view = convertView
 
         if (convertView == null)

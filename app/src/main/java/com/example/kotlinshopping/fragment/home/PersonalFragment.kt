@@ -1,4 +1,4 @@
-package com.example.kotlinshopping.fragment
+package com.example.kotlinshopping.fragment.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import com.example.kotlinshopping.R
 import org.w3c.dom.Text
 
 //首页Fragment
-class ShopCarFragment : Fragment() {
+class PersonalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view:View = inflater.inflate(R.layout.activity_shopping_cart,container,false)
+        var view:View = inflater.inflate(R.layout.fragment_user,container,false)
 
         return view
     }

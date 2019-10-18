@@ -1,21 +1,23 @@
-package com.example.kotlinshopping.fragment.TypeFragment
+package com.example.kotlinshopping.fragment.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.kotlinshopping.R
+import org.w3c.dom.Text
 
-class LeftFregment : Fragment() {
-    var rootView:View?= null
+//首页Fragment
+class ShopCarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_list,null)
+        var view:View = inflater.inflate(R.layout.activity_shopping_cart,container,false)
 
-        return rootView
+        return view
     }
 }

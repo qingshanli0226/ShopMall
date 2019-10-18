@@ -1,4 +1,4 @@
-package com.example.kotlinshopping.fragment.TypeFragment
+package com.example.kotlinshopping.fragment.type
 
 import android.os.Bundle
 import android.view.LayoutInflater

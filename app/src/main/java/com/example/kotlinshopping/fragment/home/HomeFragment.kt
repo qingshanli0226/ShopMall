@@ -1,26 +1,23 @@
-package com.example.kotlinshopping.fragment
+package com.example.kotlinshopping.fragment.home
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinshopping.Constants
 import com.example.kotlinshopping.R
-import com.example.kotlinshopping.adapter.HomeRecyclerAdapter
+import com.example.kotlinshopping.adapter.home.HomeRecyclerAdapter
 import com.example.kotlinshopping.bean.HomeBean
 import com.example.kotlinshopping.net.RetrofitService
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.OkHttpClient
-import org.w3c.dom.Text
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -65,7 +62,10 @@ class HomeFragment : Fragment() {
 
                 override fun onNext(t: HomeBean) {
                     rv_home.layoutManager = LinearLayoutManager(context)
-                    rv_home.adapter = HomeRecyclerAdapter(context!!,t.result)
+                    rv_home.adapter = HomeRecyclerAdapter(
+                        context!!,
+                        t.result
+                    )
                 }
 
                 override fun onError(e: Throwable) {

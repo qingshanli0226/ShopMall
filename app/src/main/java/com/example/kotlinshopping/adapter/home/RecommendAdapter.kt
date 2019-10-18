@@ -1,6 +1,5 @@
-package com.example.kotlinshopping.adapter
+package com.example.kotlinshopping.adapter.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,7 @@ import com.example.kotlinshopping.bean.RecommendInfo
 class RecommendAdapter(var context: Context,var data:List<RecommendInfo>): BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var view = convertView
-        var viewHolder:ViewHolder? = null
+        var viewHolder: ViewHolder? = null
         if (convertView == null){
             view = LayoutInflater.from(context).inflate(R.layout.item_recommend_grid_view,null)
             viewHolder = ViewHolder()

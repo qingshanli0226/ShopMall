@@ -1,4 +1,4 @@
-package com.example.kotlinshopping.adapter
+package com.example.kotlinshopping.adapter.home
 
 import android.content.Context
 import android.os.Handler
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.createBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
@@ -28,7 +27,6 @@ import kotlinx.android.synthetic.main.home_banner.view.*
 import kotlinx.android.synthetic.main.hot_item.view.*
 import kotlinx.android.synthetic.main.recommend_item.view.*
 import kotlinx.android.synthetic.main.seckill_item.view.*
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -113,8 +111,16 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
             )
             SECKILL -> return SeckillViewHolder(
                 mlayoutInflater.inflate(R.layout.seckill_item,null), context,resultBean.seckill_info)
-            RECOMMEND -> return RecommendViewHolder(mlayoutInflater.inflate(R.layout.recommend_item,null),context,resultBean.recommend_info)
-            HOT -> return HotViewHolder(mlayoutInflater.inflate(R.layout.hot_item,null),context,resultBean.hot_info)
+            RECOMMEND -> return RecommendViewHolder(
+                mlayoutInflater.inflate(R.layout.recommend_item, null),
+                context,
+                resultBean.recommend_info
+            )
+            HOT -> return HotViewHolder(
+                mlayoutInflater.inflate(R.layout.hot_item, null),
+                context,
+                resultBean.hot_info
+            )
         }
         return v
     }
@@ -140,15 +146,15 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
                 actViewHolder.setData()
             }
             SECKILL ->{
-                val seckillViewHolder:SeckillViewHolder = holder as SeckillViewHolder
+                val seckillViewHolder: SeckillViewHolder = holder as SeckillViewHolder
                 seckillViewHolder.setData()
             }
             RECOMMEND -> {
-                val recommendViewHolder:RecommendViewHolder = holder as RecommendViewHolder
+                val recommendViewHolder: RecommendViewHolder = holder as RecommendViewHolder
                 recommendViewHolder.setData()
             }
             HOT -> {
-                val hotViewHolder:HotViewHolder = holder as HotViewHolder
+                val hotViewHolder: HotViewHolder = holder as HotViewHolder
                 hotViewHolder.setData()
             }
         }
@@ -162,7 +168,8 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
             gv_hot = itemView.gv_hot
         }
         fun setData(){
-            gv_hot.adapter = HotGridViewAdapter(context,list)
+            gv_hot.adapter =
+                HotGridViewAdapter(context, list)
         }
     }
     //TODO Recommend 推荐ViewHolder
@@ -174,7 +181,8 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
             gv_recommend = itemView.gv_recommend
         }
         fun setData(){
-            gv_recommend.adapter = RecommendAdapter(context,list)
+            gv_recommend.adapter =
+                RecommendAdapter(context, list)
         }
     }
     //TODO Banner ViewHolder
@@ -267,7 +275,8 @@ class HomeRecyclerAdapter(var context: Context, var resultBean: Result) :
             }
 
             recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-            recyclerView.adapter = SeckillAdapter(context,seckillInfo)
+            recyclerView.adapter =
+                SeckillAdapter(context, seckillInfo)
 
             handler.sendEmptyMessageDelayed(0,1000)
 

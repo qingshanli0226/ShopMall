@@ -1,4 +1,4 @@
-package com.example.kotlinshopping.adapter
+package com.example.kotlinshopping.adapter.home
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -22,7 +22,7 @@ class SeckillAdapter(var context: Context,var seckillInfo: SeckillInfo): Recycle
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var myViewHolder:MyViewHolder = holder as MyViewHolder
+        var myViewHolder: MyViewHolder = holder as MyViewHolder
         myViewHolder.setData(position)
     }
 

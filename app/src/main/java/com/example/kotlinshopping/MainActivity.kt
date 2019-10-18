@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.kotlinshopping.fragment.*
-import com.example.kotlinshopping.fragment.TypeFragment.SortFragment
+import com.example.kotlinshopping.fragment.home.FindFragment
+import com.example.kotlinshopping.fragment.home.HomeFragment
+import com.example.kotlinshopping.fragment.home.PersonalFragment
+import com.example.kotlinshopping.fragment.home.ShopCarFragment
+import com.example.kotlinshopping.fragment.type.SortFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
