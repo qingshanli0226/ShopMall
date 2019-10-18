@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                 when(checkedId){
                     R.id.Main_rb_home->Main_frameLayout.currentItem=0
-                    R.id.Main_rb_community->Main_frameLayout.currentItem=1
+                    R.id.Main_rb_type->Main_frameLayout.currentItem=1
                 }
             }
 

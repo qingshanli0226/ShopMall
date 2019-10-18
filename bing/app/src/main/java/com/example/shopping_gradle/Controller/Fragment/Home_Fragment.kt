@@ -48,7 +48,6 @@ class Home_Fragment:Fragment() {
 
                 if(response!=null){
                     processData(response)
-                    Log.d("##",response.body().result.toString())
 
                     var gridManager:GridLayoutManager = GridLayoutManager(context,1)
                     var homeAdapter: Home_RecyclerAdapter =
@@ -88,7 +87,6 @@ class Home_Fragment:Fragment() {
 
 
 
-            Log.d("##",json.body().result.banner_info.toString())
 
             resultBean=ResultBean(json.body().code,json.body().msg,json.body().result)
             val banner_info = json.body().result.banner_info
