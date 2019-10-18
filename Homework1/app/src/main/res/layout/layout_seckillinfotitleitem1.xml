@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+        <ImageView
+                android:id="@+id/iv_fastshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fastshop"/>
+        <TextView
+                android:id="@+id/tv_fastshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="今日闪购  距·结束"
+                android:textColor="#000"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_fastshop"
+                android:layout_centerVertical="true"
+        />
+        <TextView
+                android:id="@+id/tv_fastshoptime"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_fastshop"
+                android:padding="5dp"
+                android:text="00:00:00"
+                android:layout_centerVertical="true"
+                android:background="@drawable/fastshoptimebackground"
+                android:textColor="#fff"
+                android:layout_marginLeft="10dp"/>
+        <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="查看更多  〉"
+        />
+    </RelativeLayout>
+</LinearLayout>

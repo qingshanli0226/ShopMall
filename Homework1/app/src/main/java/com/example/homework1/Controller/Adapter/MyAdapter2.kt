@@ -32,8 +32,7 @@ class MyAdapter2 : PagerAdapter {
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        super.destroyItem(container, position, `object`)
-        container.removeViewAt(position)
+        container.removeView(`object` as View)
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

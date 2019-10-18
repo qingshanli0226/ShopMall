@@ -17,7 +17,6 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
     fun refresh(datas : ArrayList<Map<String,Object>>){
         this.datas.clear()
         this.datas.addAll(datas)
-        println("size2: ${this.datas.size}")
         notifyDataSetChanged()
     }
 
@@ -40,6 +39,18 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
             }
             3 -> {
                 var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_actinfo, parent, false)
+                return ViewHolder(view)
+            }
+            4 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_seckillinfotitle, parent, false)
+                return ViewHolder(view)
+            }
+            5 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_seckillinfotitleitem1, parent, false)
+                return ViewHolder(view)
+            }
+            6 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_seckillinfotitleitem2, parent, false)
                 return ViewHolder(view)
             }
         }
@@ -66,6 +77,9 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
             "1" -> return 1
             "2" -> return 2
             "3" -> return 3
+            "4" -> return 4
+            "5" -> return 5
+            "6" -> return 6
             else -> return -1
         }
     }

@@ -61,11 +61,11 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
         myAdapter1 = object : MyAdapter(){
             override fun bind(holder: ViewHolder, position: Int) {
                 val type = datas[position].get("type").toString()
-                println("$type")
                 when(type){
                     "0" -> setBanner(holder,position)
                     "1" -> setchannelinfo(holder,position)
                     "3" -> setactinfo(holder,position)
+                    "4" -> setseckillinfo(holder,position)
                 }
             }
         }
@@ -82,20 +82,37 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
                 super.handleMessage(msg)
                 when(msg.what){
                     100 -> getJson(msg)
+                    300 -> refresh()
                 }
             }
         }
     }
+
+    private fun refresh() {
+        println("size: ${datas.size}")
+        Activity().runOnUiThread(object : Runnable{
+            override fun run() {
+                for (i in datas){
+                    println(i.toString())
+                }
+                myAdapter1.refresh(datas)
+                myAdapter1.setClick(this@Fragment_home)
+            }
+        })
+    }
+
 
     private fun getJson(msg:Message){
         var  toString : String = msg.obj.toString()
         try {
             val jsonObject = JSONObject(toString)
             val jsonObject1 = jsonObject.getJSONObject("result")
+
+
             initBanner(jsonObject1)
             initchannelinfo(jsonObject1)
             initactinfo(jsonObject1)
-
+            initseckillinfo(jsonObject1)
 
 
         }catch (e : JSONException){
@@ -208,16 +225,7 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
 
         datas.add(hashMap)
 
-        println("size: ${datas.size}")
-        Activity().runOnUiThread(object : Runnable{
-            override fun run() {
-                for (i in datas){
-                    println(i.toString())
-                }
-                myAdapter1.refresh(datas)
-                myAdapter1.setClick(this@Fragment_home)
-            }
-        })
+        handler.sendEmptyMessage(300)
     }
 
     private fun setactinfo(holder: ViewHolder, position: Int) {
@@ -229,7 +237,33 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
         }
     }
 
+    /**
+     * 限时优惠券
+     * */
+    private fun initseckillinfo(jsonObject: JSONObject) {
+        val jsonObject = jsonObject.getJSONObject("seckill_info")
+
+        var hashMap : HashMap<String,Object> = hashMapOf()
+        hashMap.put("type","4" as Object)
+        hashMap.put("data",jsonObject as Object)
+
+        datas.add(hashMap)
+
+        handler.sendEmptyMessage(300)
+    }
+
+    private fun setseckillinfo(holder: ViewHolder, position: Int) {
+        val map = datas[position]
+        var context : Context? = context
+        if(context!=null) {
+            holder.setRecycler2(R.id.rv_recycler,map.get("data") as JSONObject,context)
+            holder.setRecycler3(R.id.rv_recycler2,map.get("data") as JSONObject,context)
+        }
+    }
+
     override fun OnClick(index: Int) {
 
     }
+
+
 }
