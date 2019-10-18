@@ -1,16 +1,15 @@
 package com.example.administrator.shoppingproject.Frament
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.graphics.Color
+import android.os.*
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.administrator.shoppingproject.Adpater.RecyclerAdpater
 import com.example.administrator.shoppingproject.Adpater.XRecyclerAdpater
@@ -29,11 +28,13 @@ import okhttp3.*
 import java.io.IOException
 
 class FraHome : Fragment() {
+
     lateinit var green:GreenDaoDao
     val arr=ArrayList<Data>()
     //判断上拉刷新下拉加载的变量
     var judge:Int = 1
     val list=ArrayList<GreenDao>()
+    lateinit var adp:XRecyclerAdpater
     internal  val handler= @SuppressLint("HandlerLeak")
      object : Handler(Looper.getMainLooper()){
         override fun handleMessage(msg: Message) {
@@ -43,6 +44,7 @@ class FraHome : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
 
         //greendao 数据库
         val openHelper = DaoMaster.DevOpenHelper(context, "sh",null)
@@ -54,11 +56,18 @@ class FraHome : Fragment() {
 
 
 
-        val adp= XRecyclerAdpater(arr,context)
+        return inflater.inflate(R.layout.fra1,container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+        //求情网络方法
+        adp= XRecyclerAdpater(arr,context)
         val builder = OkHttpClient.Builder()
         val build = builder.build()
         val re = Request.Builder()
-        re.url("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=20&page="+judge)
+        re.url("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=20&page="+"$judge")
         val bu=re.build()
         val call = build.newCall(bu)
 
@@ -76,6 +85,7 @@ class FraHome : Fragment() {
                 val me=Message()
                 me.obj= response.body()!!.string()
                 handler.post(){
+
                     val s1:String=me.obj.toString()
                     val gson=Gson()
                     val bean = gson.fromJson(s1, RecyclerBean::class.java)
@@ -98,11 +108,6 @@ class FraHome : Fragment() {
 
         })
 
-        return inflater.inflate(R.layout.fra1,container,false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
 
 
@@ -115,10 +120,20 @@ class FraHome : Fragment() {
         view.rv_home.setLoadingListener(object : XRecyclerView.LoadingListener{
             override fun onLoadMore() {
                 //加载
+                judge++
+                view.rv_home.loadMoreComplete()
+
+                ask_for_data()
+                println("SSh加载事件触发")
             }
 
             override fun onRefresh() {
                 //刷新
+                judge=1
+                view.rv_home.refreshComplete()
+
+                ask_for_data()
+                println("SSh刷新事件触发")
             }
 
         })
@@ -136,7 +151,7 @@ class FraHome : Fragment() {
             }else {
 
 
-                val queryRaw = green.queryRaw("Where Tittle like ?", view.tv_search_home.text.toString()+'%')
+                val queryRaw = green.queryRaw("Where Tittle like ?", '%'+view.tv_search_home.text.toString()+'%')
 
 
                 for (greenDao in queryRaw) {
@@ -148,5 +163,38 @@ class FraHome : Fragment() {
             }
         }
     }
+
+    private fun ask_for_data() {
+        val builder = OkHttpClient.Builder()
+        val build = builder.build()
+        val re = Request.Builder()
+        re.url("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=20&page="+"$judge")
+        val bu=re.build()
+        val call = build.newCall(bu)
+        call.enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                //失败
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                //成功
+                val me=Message()
+                me.obj= response.body()!!.string()
+                handler.post(){
+
+                    val s1:String=me.obj.toString()
+                    val gson=Gson()
+                    val bean = gson.fromJson(s1, RecyclerBean::class.java)
+                    arr.addAll(bean.data)
+
+
+                    adp.notifyDataSetChanged()
+
+                }
+            }
+
+        })
+    }
+
 
 }
