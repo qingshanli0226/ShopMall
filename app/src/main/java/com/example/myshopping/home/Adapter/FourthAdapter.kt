@@ -26,9 +26,9 @@ class FourthAdapter(var context: Context, var list: MutableList<UrlBean>) :
 
     override fun onBindViewHolder(holder: MySecond, position: Int) {
         holder.text1.text = list[position].url
-        Glide.with(context).load(Constants.BASE_URL_IMAGE + list[position + 1].name)
+        Glide.with(context).load(Constants.BASE_URL_IMAGE + list[position].name)
             .into(holder.img1)
-        holder.money1.text = list[position + 1].elseUrl
+        holder.money1.text = list[position].elseUrl
     }
 
     inner class MySecond(itemView: View) : RecyclerView.ViewHolder(itemView) {
