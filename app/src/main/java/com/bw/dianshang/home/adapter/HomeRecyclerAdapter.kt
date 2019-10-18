@@ -1,14 +1,25 @@
 package com.bw.dianshang.home.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.os.Handler
+import android.os.Message
+import android.support.v4.view.PagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
+import android.widget.*
+import com.bumptech.glide.Glide
 import com.bw.dianshang.*
+import com.bw.dianshang.home.activity.GoodsListActivity
+import com.bw.dianshang.home.bean.GoodsBean
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
-import java.nio.channels.Channel
+import com.youth.banner.Transformer
+import com.youth.banner.loader.ImageLoader
 
 
 class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -96,7 +107,7 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
             BANNER -> bannerViewHolder.setData(resultBean[p1].banner_info)
             CHANNEL -> channelViewHolder.setData(resultBean[p1].channel_info)
             ACT -> actViewHolder.setData(resultBean[p1].act_info)
-            SECKILL -> seckillViewHolder.setData(resultBean[p1].seckill_info.list)
+            SECKILL -> seckillViewHolder.setData(resultBean[p1].seckill_info)
             RECOMMEND -> recommendViewHolder.setData(resultBean[p1].recommend_info)
             HOT -> hotViewHolder.setData(resultBean[p1].hot_info)
         }
@@ -107,8 +118,18 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<HotInfo>){
+        fun setData(hotInfo: List<HotInfo>){
 
+        }
+    }
+
+    var isFirst:Boolean = true
+    var tvTime:TextView? = null
+    var dt:Int? = null
+    var handler = @SuppressLint("HandlerLeak")
+    object : Handler(){
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
         }
     }
 
@@ -117,38 +138,113 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         init {
 
         }
-        fun setData(bannerInfo: List<RecommendInfo>){
+        fun setData(recommendInfo: List<RecommendInfo>){
 
         }
     }
 
     inner class SeckillViewHolder(item: View, mContext: Context): RecyclerView.ViewHolder(item) {
 
-        init {
+        var tvMore:TextView? = null
+        var recyclerView:RecyclerView? = null
+        var mContext:Context = mContext
 
+        init {
+            tvMore = item.findViewById(R.id.tv_more_seckill)
+            tvTime = item.findViewById(R.id.tv_time_seckill)
+            recyclerView = item.findViewById(R.id.rv_seckill)
         }
-        fun setData(seckillInfo: List<X>){
+        fun setData(seckillInfo: SeckillInfo){
+            //设置时间
+            if (isFirst){
+                dt = (Integer.parseInt(seckillInfo.end_time)) - (Integer.parseInt(seckillInfo.start_time))
+                isFirst = false
+            }
 
         }
     }
 
     inner class ActViewHolder(item: View, mContext: Context): RecyclerView.ViewHolder(item) {
 
-        init {
+        var actViewPager:ViewPager? = null
+        var mContext:Context? = null
 
+        init {
+            actViewPager = item.findViewById(R.id.act_viewpager)
+            this.mContext = mContext
         }
-        fun setData(bannerInfo: List<ActInfo>){
+        fun setData(actInfo: List<ActInfo>){
+            actViewPager?.pageMargin = 20
+            actViewPager?.offscreenPageLimit = 3
+//            var scalelnTransformer:ScalelnTransformer = ScalelnTransformer()
+//            actViewPager?.setPageTransformer(true,AlphaPageTransformer(scalelnTransformer))
+
+            actViewPager?.adapter = object : PagerAdapter(){
+                override fun isViewFromObject(view: View, objects: Any): Boolean {
+                    return view == objects
+                }
+
+                override fun getCount(): Int {
+                    return actInfo.size
+                }
+
+                override fun instantiateItem(container: ViewGroup, position: Int): Any {
+                    var view:ImageView = ImageView(mContext)
+                    view.scaleType = ImageView.ScaleType.FIT_XY
+                    //绑定数据
+                    Glide.with(mContext!!).load(Constants.BASE_URl_IMAGE + actInfo[position].icon_url).into(view)
+                    container.addView(view)
+                    return view
+                }
+
+                override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+//                    super.destroyItem(container, position, `object`)
+                    container.removeView(`object` as View?)
+                }
+            }
+
+            //点击事件
+            actViewPager?.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(position: Int) {
+
+                }
+
+                override fun onPageScrolled(position: Int, p1: Float, p2: Int) {
+
+                }
+
+                override fun onPageSelected(position: Int) {
+                    Toast.makeText(mContext, "position:$position",Toast.LENGTH_SHORT).show()
+                }
+
+            } )
 
         }
     }
 
     inner class ChannelViewHolder(item: View, mContext: Context): RecyclerView.ViewHolder(item) {
 
+        var gvChannel:GridView? = null
+        var mContext:Context? = null
+
         init {
-
+            gvChannel = item.findViewById(R.id.gv_channel)
+            this.mContext = mContext
         }
-        fun setData(bannerInfo: List<ChannelInfo>){
+        fun setData(channelInfo: List<ChannelInfo>){
+//            var channelAdapter:ChannelAdapter = ChannelAdapter(mContext,channelInfo)
+            gvChannel?.adapter = ChannelAdapter(mContext,channelInfo)
 
+            //点击事件
+            gvChannel?.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                if (position <= 8){
+                    var intent:Intent = Intent(mContext,GoodsListActivity::class.java)
+                    intent.putExtra("position",position)
+                    mContext?.startActivity(intent)
+                }else{
+
+                }
+            }
         }
     }
 
@@ -164,7 +260,62 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
 
         fun setData(bannerInfo: List<BannerInfo>){
             banner?.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-            //如果你想用自己的项目图片加载,那么
+            //如果你想用自己的项目图片加载,那么----->自定义图片加载框架
+            var list:MutableList<String> = mutableListOf()
+            for (item in bannerInfo){
+                list.add(item.image)
+            }
+
+            banner?.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+            banner?.setBannerAnimation(Transformer.Accordion)
+            banner?.setImages(list)
+            banner?.setImageLoader(OnLoadImageListener())
+            banner?.setDelayTime(3000)
+            banner?.start()
+
+            //设置点击事件
+            banner?.setOnBannerClickListener { position ->
+                if (position - 1 < bannerInfo.size){
+                    //                        var option = bannerInfo[position - 1].option
+                    var product_id:String = ""
+                    var name:String = ""
+                    var cover_price = ""
+
+                    when(position - 1){
+                        0 -> {
+                            product_id = "627"
+                            cover_price = "32.00"
+                            name = "剑三T恤批发"
+                        }
+                        1 -> {
+                            product_id = "21"
+                            cover_price = "8.00"
+                            name = "同人原创】剑网3 剑侠情缘叁 Q版成男 口袋胸针"
+                        }
+                        else -> {
+                            product_id = "1341"
+                            cover_price = "50.00"
+                            name = "【蓝诺】《天下吾双》 剑网3同人本"
+                        }
+                    }
+
+                    var image:String = bannerInfo[position - 1].image
+                    var goodsBean:GoodsBean = GoodsBean(name,cover_price,image,product_id)
+
+                    var intent:Intent = Intent(mContext,GoodsListActivity::class.java)
+                    intent.putExtra("goods_bean",goodsBean)
+                    mContext?.startActivity(intent)
+
+                }
+            }
+
+        }
+
+    }
+
+    class OnLoadImageListener : ImageLoader() {
+        override fun displayImage(context: Context, path: Any, imageView: ImageView) {
+            Glide.with(context).load(path).into(imageView)
         }
 
     }
