@@ -3,35 +3,33 @@ package com.example.kotlinshopping.adapter.type
 import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlinshopping.Constants
 import com.example.kotlinshopping.DensityUtil
+import com.example.kotlinshopping.R
 import com.example.kotlinshopping.bean.*
 import kotlinx.android.synthetic.main.item_hot_right.view.*
 
-class TypeRightAdapter(var context: Context,list: List<TypeResult>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class TypeRightAdapter(var context: Context,var list: List<TypeResult>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
      // 热卖
     val HOT = 0
-     lateinit var child: List<Child>
+    var child: List<Child> = list[0].child
     //普通的
     val ORDINARY = 1
-    lateinit var hot: List<HotProduct>
+   var hot: List<HotProduct> = list[0].hot_product_list
     //当前的类型
     var currentType: Int = 0
-    init {
-        if (list!= null&& list.isNotEmpty()){
-            child = list[0].child
-        }else{
-            hot = list[0].hot_product_list
-        }
-    }
+
     override fun getItemViewType(position: Int): Int {
         if (position == HOT)
         {
@@ -42,15 +40,51 @@ class TypeRightAdapter(var context: Context,list: List<TypeResult>) : RecyclerVi
         return currentType
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       if (viewType == HOT)
+       {
+           return HotViewHolderView(context,hot,LayoutInflater.from(context).inflate(R.layout.item_hot_right,null))
+       }else{
+           return OrdinaryViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ordinary_right,null),context)
+       }
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return child.size+1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (getItemViewType(position)==HOT)
+        {
+            var hotViewHolderView:HotViewHolderView = holder as HotViewHolderView
+            hotViewHolderView.setData()
+        }else{
+            var ordinaryViewHolder:OrdinaryViewHolder = holder as OrdinaryViewHolder
+            ordinaryViewHolder.setData(position-1,child[position-1])
+        }
+    }
+
+
+    class OrdinaryViewHolder(itemView: View,var context: Context):RecyclerView.ViewHolder(itemView){
+        lateinit var  iv_ordinary_right: ImageView
+        lateinit var tv_ordinary_right: TextView
+        lateinit var ll_root: LinearLayout
+        init {
+            iv_ordinary_right = itemView.findViewById(R.id.iv_ordinary_right) as ImageView
+            tv_ordinary_right = itemView.findViewById(R.id.tv_ordinary_right) as TextView
+            ll_root = itemView.findViewById(R.id.ll_root) as LinearLayout
+        }
+
+        fun setData(position: Int, child: Child)
+        {
+            //加载图片
+            Glide.with(context)
+                .load(Constants.BASE_URl_IMAGE+child.pic)
+                .into(iv_ordinary_right)
+           //加载名称
+            tv_ordinary_right.text = child.name
+
+
+        }
     }
 
     class HotViewHolderView(var context: Context, var data: List<HotProduct>, itemView: View):RecyclerView.ViewHolder(itemView
