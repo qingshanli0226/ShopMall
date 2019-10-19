@@ -14,6 +14,7 @@ public class Constants {
 //    public static final String BASE = "http://192.168.191.1:8080";
 
     // 请求Json数据基本URL
+//    public static final String BASE_URL_JSON = "/atguigu/json/";
     public static final String BASE_URL_JSON = BASE+"/atguigu/json/";
 
     // 请求图片基本URL

@@ -57,7 +57,6 @@ class HomeFragment : Fragment(), Utils_Internet.CallBackData {
             }
         }
         rv_home.layoutManager = gridLayoutManager
-
     }
 
 
@@ -65,13 +64,10 @@ class HomeFragment : Fragment(), Utils_Internet.CallBackData {
     override fun onSuccess(t: ResultBean) {
         //添加适配器
         rv_home.adapter = HomeRecycleAdapter(mContext, t)
-
-
     }
 
     //数据请求失败
     override fun onError(e: Throwable) {
         toast(e.printStackTrace().toString())
     }
-
 }

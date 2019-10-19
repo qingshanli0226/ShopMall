@@ -51,7 +51,7 @@ class GoodsInfoActivity : AppCompatActivity() {
     }
 
     fun setWebView(product_id: String) {
-        if (product_id != null) {
+        if (!product_id.isNullOrBlank()) {
             wb_good_info_more.loadUrl("http://www.atguigu.com")
             //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
             wb_good_info_more.webViewClient = object : WebViewClient() {
