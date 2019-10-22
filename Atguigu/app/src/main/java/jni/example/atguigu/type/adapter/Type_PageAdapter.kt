@@ -13,7 +13,6 @@ class Type_PageAdapter(
     override fun getItem(position: Int): Fragment {
         return list!!.get(position)
     }
-
     override fun getCount(): Int {
         return list!!.size
     }
