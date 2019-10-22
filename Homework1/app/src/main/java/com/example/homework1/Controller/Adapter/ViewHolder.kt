@@ -183,12 +183,8 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),MyAdapter.O
     }
 
     private fun refresh() {
-        println("size: ${dataz.size}")
         Activity().runOnUiThread(object : Runnable{
             override fun run() {
-                for (i in dataz){
-                    println(i.toString())
-                }
                 myAdapter.refresh(dataz)
             }
         })

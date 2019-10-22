@@ -51,7 +51,13 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
         initRecycler()
         initHandler()
         initListener()
+
+        initTopButton()
         return view
+    }
+
+    private fun initTopButton() {
+        img_topbtn.setOnClickListener { view_recycler.scrollToPosition(0) }
     }
 
     private fun initRecycler() {
@@ -66,6 +72,7 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
                     "1" -> setchannelinfo(holder,position)
                     "3" -> setactinfo(holder,position)
                     "4" -> setseckillinfo(holder,position)
+                    "7" -> setrecommendinfo(holder,position)
                 }
             }
         }
@@ -113,7 +120,7 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
             initchannelinfo(jsonObject1)
             initactinfo(jsonObject1)
             initseckillinfo(jsonObject1)
-
+            initrecommendinfo(jsonObject1)
 
         }catch (e : JSONException){
 
@@ -259,6 +266,40 @@ class Fragment_home : BaseFragment(),MyAdapter.OnItemClick {
             holder.setRecycler2(R.id.rv_recycler,map.get("data") as JSONObject,context)
             holder.setRecycler3(R.id.rv_recycler2,map.get("data") as JSONObject,context)
         }
+    }
+
+    /**
+     * 新品推荐
+     * */
+    private fun initrecommendinfo(jsonObject: JSONObject) {
+        val jsonArray = jsonObject.getJSONArray("recommend_info")
+        var dataz : ArrayList<Map<String,Object>> = arrayListOf()
+        for (i in 0 until jsonArray.length()) {
+            var hashMap : HashMap<String,Object> = hashMapOf()
+            val jsonObject2 = jsonArray.getJSONObject(i)
+            var string :String = "${Constants.BASE_URl_IMAGE}${jsonObject2.getString("figure")}"
+            println(string)
+
+            hashMap.put("image",string as Object)
+            hashMap.put("name",jsonObject2.getString("name") as Object)
+            hashMap.put("price",jsonObject2.getString("cover_price") as Object)
+            hashMap.put("type","8" as Object)
+
+            dataz.add(hashMap)
+        }
+
+        var hashMap : HashMap<String,Object> = hashMapOf()
+
+        hashMap.put("type","7" as Object)
+        hashMap.put("data",dataz as Object)
+
+        datas.add(hashMap)
+        handler.sendEmptyMessage(300)
+    }
+
+    private fun setrecommendinfo(holder: ViewHolder, position: Int) {
+        val map = datas[position]
+
     }
 
     override fun OnClick(index: Int) {

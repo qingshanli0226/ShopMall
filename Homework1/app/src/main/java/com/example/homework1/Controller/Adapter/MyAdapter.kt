@@ -1,12 +1,10 @@
 package com.example.homework1.Controller.Adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homework1.R
-import java.util.zip.Inflater
 
 abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
 
@@ -53,6 +51,15 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
                 var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_seckillinfotitleitem2, parent, false)
                 return ViewHolder(view)
             }
+            7 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recommendinfo, parent, false)
+                return ViewHolder(view)
+            }
+            8 -> {
+                var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recommendinfoitem, parent, false)
+                return ViewHolder(view)
+            }
+
         }
         var view : View = LayoutInflater.from(parent.context).inflate(R.layout.layout_channelinfo, parent, false)
         return ViewHolder(view)
@@ -80,6 +87,8 @@ abstract class MyAdapter : RecyclerView.Adapter<ViewHolder>(){
             "4" -> return 4
             "5" -> return 5
             "6" -> return 6
+            "7" -> return 7
+            "8" -> return 8
             else -> return -1
         }
     }
