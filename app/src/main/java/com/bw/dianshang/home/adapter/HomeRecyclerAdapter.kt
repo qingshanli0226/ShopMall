@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Message
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.youth.banner.loader.ImageLoader
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -123,16 +126,6 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         }
     }
 
-    var isFirst:Boolean = true
-    var tvTime:TextView? = null
-    var dt:Int? = null
-    var handler = @SuppressLint("HandlerLeak")
-    object : Handler(){
-        override fun handleMessage(msg: Message?) {
-            super.handleMessage(msg)
-        }
-    }
-
     inner class RecommendViewHolder(item: View, mContext: Context): RecyclerView.ViewHolder(item) {
 
         init {
@@ -140,6 +133,26 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
         }
         fun setData(recommendInfo: List<RecommendInfo>){
 
+        }
+    }
+
+    var isFirst:Boolean = true
+    var tvTime:TextView? = null
+    var dt:Int? = null
+    var handler = @SuppressLint("HandlerLeak") object : Handler(){
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (msg?.what == 0){
+                dt = dt!! - 1000
+                var sd:SimpleDateFormat = SimpleDateFormat("HH:mm:ss")
+                tvTime?.text = sd.format(Date())
+
+                removeMessages(0)
+                sendEmptyMessageDelayed(0,1000)
+                if (dt == 0){
+                    removeMessages(0)
+                }
+            }
         }
     }
 
@@ -160,6 +173,9 @@ class HomeRecyclerAdapter(mContext: Context,resultBean: MutableList<Result>) : R
                 dt = (Integer.parseInt(seckillInfo.end_time)) - (Integer.parseInt(seckillInfo.start_time))
                 isFirst = false
             }
+
+            //设置RecyclerView
+            recyclerView?.layoutManager = LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false)
 
         }
     }
