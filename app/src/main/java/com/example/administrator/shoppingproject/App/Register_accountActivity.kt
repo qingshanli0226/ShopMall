@@ -1,18 +1,22 @@
 package com.example.administrator.shoppingproject.App
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.administrator.shoppingproject.Base.PhoneGreen
 import com.example.administrator.shoppingproject.R
 import com.example.day9application.DaoMaster
 import com.example.day9application.PhoneGreenDao
+import com.youth.banner.BannerConfig
+import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_account.*
 
 class Register_accountActivity : AppCompatActivity() {
-
+    var arr=ArrayList<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_account)
@@ -21,7 +25,14 @@ class Register_accountActivity : AppCompatActivity() {
         val daoMaster = DaoMaster(writableDatabase)
         val newSession = daoMaster.newSession()
         val phoneGreenDao = newSession.phoneGreenDao
+        arr.add(R.drawable.ao)
+        arr.add(R.drawable.ao2)
+        arr.add(R.drawable.abc_btn_check_material)
+        banner_sign.setBannerStyle(   BannerConfig.NUM_INDICATOR)
+        banner_sign.setImages(arr)
 
+        banner_sign.setDelayTime(2000)
+        banner_sign.start()
 
 
        //注册
@@ -49,4 +60,11 @@ class Register_accountActivity : AppCompatActivity() {
 
 
     }
+    public class GlideImageLoader : ImageLoader(){
+        override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+
+        }
+
+    }
 }
+

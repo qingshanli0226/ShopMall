@@ -92,7 +92,6 @@ class FraHome : Fragment() {
                     arr.addAll(bean.data)
                     for (i in 0..arr.size-1) {
                         val greenadd=GreenDao()
-
                         greenadd.tittle=arr.get(i).title
                         greenadd.text=arr.get(i).food_str
                         list.add(greenadd)

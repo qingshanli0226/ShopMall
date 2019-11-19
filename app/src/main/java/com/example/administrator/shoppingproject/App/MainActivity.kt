@@ -36,9 +36,7 @@ class MainActivity : AppCompatActivity() {
         arr.add(fra)
         arr.add(fra2)
         val adp= FramentAdpater(supportFragmentManager, arr,this)
-
         vp_main.adapter=adp
-
         vp_main.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(p0: Int) {
 
